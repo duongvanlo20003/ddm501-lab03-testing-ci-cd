@@ -12,7 +12,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
+RUN pip install --no-cache-dir "numpy==1.26.2" "Cython<3" \
+    && pip wheel --no-cache-dir --no-build-isolation --wheel-dir /wheels -r requirements.txt
 
 FROM python:3.10-slim
 
